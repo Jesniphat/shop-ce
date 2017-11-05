@@ -8,7 +8,14 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "server:dev": "concurrently \"npm run webpack:dev \" \"PROD=development nodemon ./dist/server/app.js\" ",
+    "cliend:dev": "ng serve --proxy-config proxy.conf.json",
+    "build:ssr": "npm run build:client && npm run webpack:server",
+    "build:client": "ng build --prod",
+    "serve:ssr": "PROD=production node dist/server/app.js",
+    "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
+    "webpack:dev": "webpack --config webpack.server.config.js --progress --colors -d --watch"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +28,19 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
+    "bluebird": "^3.5.1",
+    "concurrently": "^3.5.0",
+    "cookie-parser": "^1.4.3",
     "core-js": "^2.4.1",
+    "glob": "^7.1.2",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.19.1",
+    "morgan": "^1.9.0",
+    "multer": "^1.3.0",
+    "mysql": "^2.13.0",
+    "nodemon": "^1.12.1",
     "rxjs": "^5.5.2",
+    "ts-loader": "^3.1.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
