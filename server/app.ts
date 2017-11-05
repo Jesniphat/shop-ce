@@ -28,14 +28,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Server static files from /browser
-app.get('*', express.static(join(DIST_FOLDER, 'browser')));
-
-// All regular routes use the Universal engine
-app.get('*', (req, res) => {
-  res.render(join(DIST_FOLDER, 'browser', 'index.html'), { req });
-});
-
 app.use('/api/menu', menu);
 app.use('/api/authen', authen);
 app.use('/api/home', home);
@@ -45,6 +37,13 @@ app.use('/api/upload', upload);
 app.use('/api/staff', staff);
 app.use('/api/user', user);
 
+// Server static files from /browser
+app.get('*', express.static(join(DIST_FOLDER, 'browser')));
+
+// All regular routes use the Universal engine
+app.get('*', (req, res) => {
+  res.render(join(DIST_FOLDER, 'browser', 'index.html'), { req });
+});
 
 // Start up the Node server
 app.listen(PORT, () => {

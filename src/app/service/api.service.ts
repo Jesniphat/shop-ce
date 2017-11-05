@@ -31,8 +31,7 @@ export class ApiService {
     get(url: string):Observable<ResponseData> {
         return this.http
                 .get( this.api + url)
-                //.map((response: Response) => response.json());
-                .map(this.extractData)
+                .map((response: Response) => this.extractData(response)) // .map(this.extractData)
                 .catch(this.handleError);
     }
 
@@ -41,8 +40,7 @@ export class ApiService {
                 .post(this.api + url, JSON.stringify(param), new RequestOptions({
                     headers: new Headers({"Content-Type": "application/json"})
                 }))
-                //.map((response: Response) => response.json());
-                .map(this.extractData)
+                .map((response: Response) => this.extractData(response)) // .map(this.extractData)
                 .catch(this.handleError);
     }
 
